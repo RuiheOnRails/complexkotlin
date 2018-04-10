@@ -67,10 +67,6 @@ enum class Philosopher {
   };
   abstract fun signal(): Philosopher
 }
-//for extra credit !!!!!!
-//Seneca the younger full name is Lucius Annaeus Seneca
-//He's commonly assiocated with Stoicism school of Hellenistic philosophy
-//to summarize Stoicism: philosophy of personal ethics informed by its system of logic and its views on the natural world.
 
 // create an class "Command" that can be used as a function (provide an "invoke()" function)
 // that takes a single parameter ("message" of type String)
