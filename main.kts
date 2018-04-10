@@ -5,7 +5,23 @@ println("UW Complex Kotlin homework")
 // use fold to compress the array of strings down into a single string
 // the final string should look like FIZZBUZZFIZZFIZZBUZZFIZZFIZZBUZZ
 //
-val mapFoldResults = ""
+var mapFoldResults = ""
+val numbers = Array(15, {i -> i+1})
+mapFoldResults = numbers.map{
+    if(it == 0){
+        ""
+    }else if (it%3 == 0 && it%5 == 0) {
+        "FIZZBUZZ"
+    } else if (it%3 == 0){
+        "FIZZ"
+    } else if (it%5 == 0){
+        "BUZZ"
+    } else {
+        ""
+    }
+}.fold(""){
+    result, el -> result + el
+}
 
 
 // This is a utility function for your use as you choose, and as an
@@ -20,21 +36,50 @@ fun Int.times(block: () -> Unit): Unit {
 fun process(message: String, block: (String) -> String): String {
     return ">>> ${message}: {" + block(message) + "}"
 }
-val r1 = "" // call process() with message "FOO" and a block that returns "BAR"
+val r1 = process("FOO", {
+    "BAR"
+}) // call process() with message "FOO" and a block that returns "BAR"
 
 val r2_message = "wooga"
-val r2 = "" // call process() with message "FOO" and a block that upper-cases 
+val r2 = process("FOO", {
+    var result = ""
+    3.times{
+        result += r2_message.toUpperCase()
+    }
+    result
+}) // call process() with message "FOO" and a block that upper-cases 
             // r2_message, and repeats it three times with no spaces: "WOOGAWOOGAWOOGA"
 
 
 // write an enum-based state machine between talking and thinking
-enum class Philosopher { }
+enum class Philosopher {
+  THINKING{
+    override fun toString():String {
+      return "Deep thoughts...."
+    }
+    override fun signal() = TALKING
+  },
+  TALKING{
+    override fun toString():String{
+      return "Allow me to suggest an idea..."
+    }
+    override fun signal() = THINKING
+  };
+  abstract fun signal(): Philosopher
+}
+//for extra credit !!!!!!
+//Seneca the younger full name is Lucius Annaeus Seneca
+//He's commonly assiocated with Stoicism school of Hellenistic philosophy
+//to summarize Stoicism: philosophy of personal ethics informed by its system of logic and its views on the natural world.
 
 // create an class "Command" that can be used as a function (provide an "invoke()" function)
 // that takes a single parameter ("message" of type String)
 // primary constructor should take a String argument ("prompt")
 // when called, the Command object should return a String containing the prompt and then the message
 class Command(val prompt: String) {
+    operator fun invoke(message:String):String{
+        return prompt+message
+    }
 }
 
 
@@ -62,6 +107,3 @@ print("Command tests: ")
 print(if (Command("")("") == "") "." else "!")
 print(if (Command("> ")("Hello!") == "> Hello!") "." else "!")
 println("")
-
-
-
